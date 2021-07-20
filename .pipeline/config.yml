@@ -1,0 +1,18 @@
+general:
+  buildTool: maven
+  sonarTokenCredentialsId: 'sonartoken'
+  githubTokenCredentialsId: githubTokenCredentialsId
+  productiveBranch: master
+
+stages:
+  'Pull-Request Voting':
+    sonarExecuteScan: true
+  'Central Build':
+    sonarExecuteScan: true
+
+steps:
+  influxWriteData:
+    influxServer: jenkins
+  sonarExecuteScan:
+    host: 'http://172.17.0.1:9000'
+    instance: 'SAP SonarQube'
