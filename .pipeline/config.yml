@@ -1,18 +1,17 @@
 general:
   buildTool: maven
-  sonarTokenCredentialsId: 'sonartoken'
+  sonarTokenCredentialsId: sonartoken
   githubTokenCredentialsId: githubTokenCredentialsId
   productiveBranch: master
-
-stages:
-  'Pull-Request Voting':
-    sonarExecuteScan: true
-  'Central Build':
-    sonarExecuteScan: true
+  verbose: true
 
 steps:
+  kanikoExecute:
+    dockerfilePath: "Dockerfile"
   influxWriteData:
     influxServer: jenkins
+    artifactVersion: "v1"
   sonarExecuteScan:
     host: 'http://172.17.0.1:9000'
-    instance: 'SAP SonarQube'
+    projectKey: 'my:test-maven-app'
+    verbose: true

@@ -1,3 +1,14 @@
-@Library('piper-lib') _
+@Library('piper-lib-os') _
 
-sapPiperPipeline script: this
+node() {
+    stage('prepare') {
+	    deleteDir()
+        checkout scm
+        setupCommonPipelineEnvironment script:this
+    }
+    stage('build') {
+        sonarExecuteScan script: this
+        // kanikoExecute script: this
+    }
+    influxWriteData script: this
+}
